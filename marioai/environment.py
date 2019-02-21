@@ -100,7 +100,7 @@ class Environment(object):
         '''
         
         actionStr = ""
-        for i in xrange(5):
+        for i in range(5):
             if action[i] == 1:
                 actionStr += '1'
 
@@ -190,7 +190,7 @@ class TCPClient(object):
             data = self.recvData()
             logging.info('[TCPClient] greetings received: %s'%data)
 
-        except socket.error, message:
+        except socket.error as message:
             logging.error('[TCPClient] connection error: %s'%message[1])
             sys.exit(1)
 
@@ -216,7 +216,7 @@ class TCPClient(object):
         try:
             return self.sock.recv(self.buffer_size)
 
-        except socket.error, message:
+        except socket.error as message:
             logging.error('[TCPClient] error while receiving. Message: %s'%message)
             raise socket.error
 
@@ -227,9 +227,9 @@ class TCPClient(object):
           data (str): the string to be sent.
         '''
         try:
-            self.sock.send(data)
+            self.sock.send(data.encode())
 
-        except socket.error, message:
+        except socket.error as message:
             logging.error('[TCPClient] error while sending. Message: %s'%message)
             raise socket.error
 

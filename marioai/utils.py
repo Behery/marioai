@@ -37,7 +37,7 @@ def decode(estate):
             col += 1
             if (totalBitsDecoded == 484):
                 break
-    print "totalBitsDecoded = ", totalBitsDecoded
+    print("totalBitsDecoded = ", totalBitsDecoded)
     return dstate, check_sum;
 
 
@@ -45,6 +45,7 @@ def extractObservation(data):
     """
      parse the array of strings and return array 22 by 22 of doubles
     """
+    data = data.decode()
 
     obsLength = 487
     levelScene = numpy.empty(shape = (22, 22), dtype = numpy.int)
@@ -56,7 +57,7 @@ def extractObservation(data):
         levelScene, check_sum_got = decode(data[3:34])
         check_sum_recv = int(data[34:])
         if check_sum_got != check_sum_recv:
-            print "Error check_sum! got %d != recv %d" % (check_sum_got, check_sum_recv)
+            print ("Error check_sum! got %d != recv %d" % (check_sum_got, check_sum_recv))
 
         return (mayMarioJump, isMarioOnGround, levelScene)
     data = data.split(' ')
