@@ -3,7 +3,7 @@ import marioai
 import agents
 
 def main():
-    agent = agents.RandomAgent()
+    agent = agents.BTAgent()
     task = marioai.Task()
     exp = marioai.Experiment(task, agent)
     
