@@ -33,11 +33,9 @@ class BTAgent(marioai.Agent):
                         50, CONTINUOUS_TICK_TOCK, None, None))
 
     def act(self):
-        # print (BLACKBOARD.next_action)
         action = BLACKBOARD.get("next_action") or [0, 0, 0, 0, 0]
         BLACKBOARD.set("next_action", None)
         return action
-        # return [0, 1, 0, random.randint(0, 1), 0]
 
     def sense(self, obs):
 
@@ -46,27 +44,6 @@ class BTAgent(marioai.Agent):
         field = self.level_scene
         BLACKBOARD.set("focus", field[9:14, 11:16].flatten())
         BLACKBOARD.set("can_shoot", obs[0])
-
-    def learn(self):
-        T = "learn aciton"
-        while self.cum_reward < 1:
-            perform_action(sequence(T_safe, T))
-            if is_executed("action learn"):
-                T_cond = get_situation()
-                T_acts = learn_single_action(T)
-                if T_acts.children == 0:
-                    T_acts = get_actions_gp(T)
-                if is_present(T_acts):
-                    T_cond_exist = get_conditions(T_acts)
-                    T_cond_exist = simplify(fallback(T_cond_exist, T_cond))
-                else:
-                    T = fallback(sequence(T_cond, T_acts), T)
-            self.get_rewards(sequence(T_safe, T))
-        return T
-
-
-    # def giveRewards(self, reward, cum_reward):
-    #     return 0.1
 
     def create_tree(self):
         BLACKBOARD.next_action = [0,0,0,0,0]
