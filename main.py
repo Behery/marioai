@@ -3,11 +3,11 @@ import marioai
 import agents
 
 def main():
-    agent = agents.BTAgent()
+    agent = agents.RLAgent()
     task = marioai.Task()
     exp = marioai.Experiment(task, agent)
     
-    exp.max_fps = 24
+    exp.max_fps = 25
     task.env.level_type = 0
     exp.doEpisodes()
 
