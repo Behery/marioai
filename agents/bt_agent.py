@@ -20,7 +20,7 @@ __all__ = ['BTAgent']
 BLACKBOARD = None
 
 class BTAgent(marioai.Agent):
-    def __init__(self):
+    def __init__(self, tree=None):
         super(BTAgent, self)
 
         global BLACKBOARD
@@ -28,7 +28,7 @@ class BTAgent(marioai.Agent):
         py_trees.logging.level = py_trees.logging.Level.DEBUG
 
         BLACKBOARD = Blackboard()
-        self.tree = BehaviourTree(self.create_tree())
+        self.tree = tree or BehaviourTree(self.create_tree())
         _thread.start_new_thread(self.tree.tick_tock, (
                         50, CONTINUOUS_TICK_TOCK, None, None))
 
